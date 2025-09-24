@@ -30,8 +30,7 @@ export type AttestOptions = {
   predicate: object
   // GitHub token for writing attestations.
   token: string
-  // Sigstore instance to use for signing. Must be one of "public-good" or
-  // "github".
+  // Sigstore instance to use for signing. Must be one of "public-good", "github", or "self-hosted".
   sigstore?: SigstoreInstance
   // HTTP headers to include in request to attestations API.
   headers?: {[header: string]: string | number | undefined}

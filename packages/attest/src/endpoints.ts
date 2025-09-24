@@ -2,11 +2,16 @@ import * as github from '@actions/github'
 
 const PUBLIC_GOOD_ID = 'public-good'
 const GITHUB_ID = 'github'
+const SELF_HOSTED_ID = 'self-hosted'
 
 const FULCIO_PUBLIC_GOOD_URL = 'https://fulcio.sigstore.dev'
 const REKOR_PUBLIC_GOOD_URL = 'https://rekor.sigstore.dev'
 
-export type SigstoreInstance = typeof PUBLIC_GOOD_ID | typeof GITHUB_ID
+const FULCIO_SELF_HOSTED_URL = 'https://fulcio.sigstore.dev'
+const REKOR_SELF_HOSTED_URL = 'https://rekor.sigstore.dev'
+// const TSA_SELF_HOSTED_URL = 'https://timestamp.example.com'
+
+export type SigstoreInstance = typeof PUBLIC_GOOD_ID | typeof GITHUB_ID | typeof SELF_HOSTED_ID
 
 export type Endpoints = {
   fulcioURL: string
@@ -19,12 +24,18 @@ export const SIGSTORE_PUBLIC_GOOD: Endpoints = {
   rekorURL: REKOR_PUBLIC_GOOD_URL
 }
 
+export const SIGSTORE_SELF_HOSTED: Endpoints = {
+  fulcioURL: FULCIO_SELF_HOSTED_URL,
+  rekorURL: REKOR_SELF_HOSTED_URL
+  // tsaServerURL: TSA_SELF_HOSTED_URL
+}
+
 export const signingEndpoints = (sigstore?: SigstoreInstance): Endpoints => {
   let instance: SigstoreInstance
 
   // An explicitly set instance type takes precedence, but if not set, use the
   // repository's visibility to determine the instance type.
-  if (sigstore && [PUBLIC_GOOD_ID, GITHUB_ID].includes(sigstore)) {
+  if (sigstore && [PUBLIC_GOOD_ID, GITHUB_ID, SELF_HOSTED_ID].includes(sigstore)) {
     instance = sigstore
   } else {
     instance =
@@ -38,6 +49,8 @@ export const signingEndpoints = (sigstore?: SigstoreInstance): Endpoints => {
       return SIGSTORE_PUBLIC_GOOD
     case GITHUB_ID:
       return buildGitHubEndpoints()
+    case SELF_HOSTED_ID:
+      return SIGSTORE_SELF_HOSTED
   }
 }
 
