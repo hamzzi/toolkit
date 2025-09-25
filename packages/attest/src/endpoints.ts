@@ -8,7 +8,7 @@ const FULCIO_PUBLIC_GOOD_URL = 'https://fulcio.sigstore.dev'
 const REKOR_PUBLIC_GOOD_URL = 'https://rekor.sigstore.dev'
 
 const FULCIO_SELF_HOSTED_URL = 'https://fulcio.sigstore.dev'
-const REKOR_SELF_HOSTED_URL = 'https://rekor.sigstore.dev'
+const REKOR_SELF_HOSTED_URL = 'http://10.113.108.252:3000/'
 // const TSA_SELF_HOSTED_URL = 'https://timestamp.example.com'
 
 export type SigstoreInstance = typeof PUBLIC_GOOD_ID | typeof GITHUB_ID | typeof SELF_HOSTED_ID
